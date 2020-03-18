@@ -20,9 +20,21 @@ reconstructed images and improve the effectiveness of text recognition
 in these images.
 
 
-#Dependencies
+# Dependencies
+  - Python 3.6
+  - Keras 2.2.4
+  - Tensorflow 1.12
+  - OpenCV and NumPy
+  - Matplotlib
+  - Pandas
+  
+# The Proposed Model
+The structure of the proposed model is based on [U-Net network](https://arxiv.org/abs/1505.04597), which
+is based on encoder-decoder architecture. However, instead of using normal
+convolutional operation, the network uses stacked partial convolution
+operation and mask updating steps, which together form a Partial Convolutional
+Layer to perform image reconstruction.
 
-    Python 3.6
-    Keras 2.2.4
-    Tensorflow 1.12
-
+### Network Architecture
+The network architecture is illustrated in Figure 4.2. The network is similar
+to U-Net architecture [13] but with some modifications to fit our task.
