@@ -1,1 +1,1 @@
-# Reconstruction of occluded text in images for optical character recognition
+# Reconstruction of Occluded Text in Images for Optical Character Recognition
