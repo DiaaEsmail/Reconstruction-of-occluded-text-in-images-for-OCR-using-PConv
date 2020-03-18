@@ -134,6 +134,11 @@ of the network, and fine-tune using a learning rate of 0.00005 (we have
 50 epochs in this phase as well). However, we keep batch normalization
 parameters enabled in the decoder part of the network.
 
+The two-phase technique does not only avoid the incorrect mean and
+variance issues, but also helps to achieve faster convergence. It takes about
+10 days for training the model on COCO-Text dataset for both phases. Table below summarizes the training process including the numeric evaluation.
+
+
 
 ### Quantitative Evaluation
 
@@ -148,3 +153,5 @@ It is defined by mean squared error (MSE), and
 computed by averaging the squared intensity differences of distorted and
 original image pixels, it is usually expressed in terms of the logarithmic
 decibel scale. MSE and PSNR are defined as:
+
+![](image/psnr.png)
