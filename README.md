@@ -52,3 +52,5 @@ layer is a simple convolution but before
 doing the convolution we are multiplying the input patch of image with a
 binary mask. So, everywhere where the mask is, we are setting the pixels to
 zeros (Figure below) and then we are doing the convolution.
+
+![](image/Pconv.png)
