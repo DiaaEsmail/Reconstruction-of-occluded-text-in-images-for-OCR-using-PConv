@@ -164,3 +164,6 @@ Some representative results of the model are presented
 in Figure below, including ground-truth images (GT), masked input images
 (Input) with various dilation of holes, and inpainted (reconstructed) images
 (PConv).
+
+
+![](image/result.png)
