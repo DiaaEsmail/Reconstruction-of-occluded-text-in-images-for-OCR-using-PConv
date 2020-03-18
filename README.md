@@ -54,3 +54,11 @@ binary mask. So, everywhere where the mask is, we are setting the pixels to
 zeros (Figure below) and then we are doing the convolution.
 
 ![](image/Pconv.png)
+
+We refer to partial convolution operation and mask update function
+jointly as the [Partial Convolutional Layer](https://arxiv.org/abs/1804.07723).
+Let X be the feature values of
+input image (pixel values) for the current convolution (sliding) window at
+the position (i,j) and M(i,j) be the corresponding binary mask, with the
+hole region being 0 and non-hole region being 1. The partial convolution
+(ignoring bias) at every location is similarly defined as:
