@@ -115,3 +115,36 @@ I create masks of random streaks and holes of arbitrary shapes using OpenCV as f
 training phase i do augmentation on the masks and later perform random dilation, rotation
 and cropping. All the masks and images for training and testing are with
 the size of 512×512.
+
+![](image/mask_sample.png)
+
+
+### Training Procedure
+
+The model was trained on a single NVIDIA Geforce GTX 1080 Ti (11 GB) with a batch
+size of 6, and each epoch is specified to be 10,000 batches long. However, in order to use batch normalization in
+the presence of holes we can apply two-phase training technique:
+
+- Phase 1: first enable batch normalization in all layers for the
+initial training (in my experiment is 50 epochs) using a learning rate
+of 0.0002
+- Phase 2: Then, freeze the batch normalization (the trainable parameters
+of batch normalization layer) in all layers of the encoder part
+of the network, and fine-tune using a learning rate of 0.00005 (we have
+50 epochs in this phase as well). However, we keep batch normalization
+parameters enabled in the decoder part of the network.
+
+
+### Quantitative Evaluation
+
+It has been observed in the recent related works of image inpainting
+that there is no perfect numerical metric to evaluate image reconstruction
+results due to the existence of many possible solutions. Nevertheless, we follow
+the previous image inpainting works by reporting Peak Signal to Noise Ratio (PSNR). 
+
+#### PSNR
+
+It is defined by mean squared error (MSE), and
+computed by averaging the squared intensity differences of distorted and
+original image pixels, it is usually expressed in terms of the logarithmic
+decibel scale. MSE and PSNR are defined as:
