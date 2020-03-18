@@ -138,8 +138,9 @@ The two-phase technique does not only avoid the incorrect mean and
 variance issues, but also helps to achieve faster convergence. It takes about
 10 days for training the model on COCO-Text dataset for both phases. Table below summarizes the training process including the numeric evaluation.
 
+![](image/table.png)
 
-
+’t/GPU’ indicates the time cost per epoch at training stage on GPU.
 ### Quantitative Evaluation
 
 It has been observed in the recent related works of image inpainting
@@ -155,3 +156,11 @@ original image pixels, it is usually expressed in terms of the logarithmic
 decibel scale. MSE and PSNR are defined as:
 
 ![](image/psnr.png)
+
+
+### Inpainting Results
+
+Some representative results of the model are presented
+in Figure below, including ground-truth images (GT), masked input images
+(Input) with various dilation of holes, and inpainted (reconstructed) images
+(PConv).
