@@ -166,4 +166,3 @@ in Figure below, including ground-truth images (GT), masked input images
 (PConv).
 
 
-![](image/result.png)
