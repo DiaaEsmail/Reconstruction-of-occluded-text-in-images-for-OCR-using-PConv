@@ -62,3 +62,16 @@ input image (pixel values) for the current convolution (sliding) window at
 the position (i,j) and M(i,j) be the corresponding binary mask, with the
 hole region being 0 and non-hole region being 1. The partial convolution
 (ignoring bias) at every location is similarly defined as:
+
+![](image/p_eq.png)
+
+⊙ denotes element-wise multiplication. 
+
+One more important thing is that the mask
+is also updated after each partial convolution operation. If the convolution
+was able to condition its output on at least one valid input value, then we
+mark that location to be valid. In other words, if we could in one layer reconstruct
+some pixels, when receptive field was covering some real pixels in
+the place of previous layer not the mask, then we are able to calculate some
+activations, and thus we are updating this removing mask from this pixel.
+The mask updating function is expressed as:
