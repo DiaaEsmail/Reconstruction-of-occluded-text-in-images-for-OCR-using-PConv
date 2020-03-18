@@ -18,3 +18,11 @@ model consists of an encoder and decoder, and uses stacked self-attention
 modules. The Experiments have shown that both proposed models can produce
 reconstructed images and improve the effectiveness of text recognition
 in these images.
+
+
+#Dependencies
+
+    Python 3.6
+    Keras 2.2.4
+    Tensorflow 1.12
+
