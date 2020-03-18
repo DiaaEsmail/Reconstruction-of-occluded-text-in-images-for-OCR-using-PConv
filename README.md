@@ -99,3 +99,19 @@ is composed of many components:
 
 
 The Total Loss is a weighted sum of all theses loss components.
+
+![](image/loss.PNG)
+
+
+# Experiment
+
+### Training Dataset
+For all experiments i use [COCO-Text dataset](https://rrc.cvc.uab.es/?ch=5), which is based on MSCOCO dataset that
+contains images of complex scenes and based on real scene imagery (as opposed to synthetic images).
+
+### Mask Generation 
+
+I create masks of random streaks and holes of arbitrary shapes using OpenCV as figure shows below, where during the
+training phase i do augmentation on the masks and later perform random dilation, rotation
+and cropping. All the masks and images for training and testing are with
+the size of 512×512.
