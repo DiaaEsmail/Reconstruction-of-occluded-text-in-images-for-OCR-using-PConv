@@ -36,5 +36,19 @@ operation and mask updating steps, which together form a Partial Convolutional
 Layer to perform image reconstruction.
 
 ### Network Architecture
-The network architecture is illustrated in Figure 4.2. The network is similar
-to U-Net architecture [13] but with some modifications to fit our task.
+The network architecture is illustrated in figure below The network is similar to U-Net architecture 
+but with some modifications to fit our task. ![](image/architecture.png)
+It consists of an encoder and decoder with replacing all convolutional layers with Partial Convolutional 
+Layers that take into account also masks and using nearest neighbor up-sampling in the decoding stage. 
+The straightforward implementation is to define binary masks of size C x H x W, and the same size with 
+their associated images. Mask updating is implemented using a fixed convolution layer with the same 
+kernel size (filter size) as the partial convolution operation, but with weights identically set 
+to 1 and bias set to 0.
+
+### Partial Convolutional Layer
+Partial Convolutional Layer comprises a masked and renormalized Convolution
+Operation followed by a mask-update step. Our partial convolutional
+layer is a simple convolution but before
+doing the convolution we are multiplying the input patch of image with a
+binary mask. So, everywhere where the mask is, we are setting the pixels to
+zeros (Figure below) and then we are doing the convolution.
