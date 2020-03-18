@@ -11,19 +11,13 @@ plausible imagery before recognizing the whole text in an image. I introduce
 an approach to reconstruct an image by using Partial Convolution,
 which comprises a mask and renormalized convolution operation followed
 by a mask-update step to automatically generate an updated mask for the
-next layer as part of the forward pass. For the recognition task, I propose
-a no-recurrence sequence-to-sequence model that depends only on attention
-mechanism and dispenses completely with recurrences and convolutions. The
-model consists of an encoder and decoder, and uses stacked self-attention
-modules. The Experiments have shown that both proposed models can produce
-reconstructed images and improve the effectiveness of text recognition
-in these images.
+next layer as part of the forward pass. The Experiments have shown that the proposed model can effectively and reasonably produce reconstructed images 
 
 
 # Dependencies
   - Python 3.6
   - Keras 2.2.4
-  - Tensorflow 1.12
+  - Tensorflow 1.13
   - OpenCV and NumPy
   - Matplotlib
   - Pandas
@@ -75,3 +69,33 @@ some pixels, when receptive field was covering some real pixels in
 the place of previous layer not the mask, then we are able to calculate some
 activations, and thus we are updating this removing mask from this pixel.
 The mask updating function is expressed as:
+
+
+![](image/mask.png)
+
+We are considering the reconstructed information in the subsequent layers.
+And thus, with sufficient successive applications of the partial convolution
+layer any mask will be shrinking from layer to layer and eventually be
+all ones if the input contained any valid pixels, then it usually disappears in
+the encoder part.
+
+
+### Loss Function 
+
+To optimize the model parameters we need a loss function. The used loss function
+is composed of many components: 
+
+- Hole and Non-hole per Pixel Loss: 
+  here we consider two elements; one is calculated inside the mask and the other for unmasked regions.
+  
+- Perceptual loss: 
+  It looks at 2 images first the ground truth (original) image and second is the output image, it extracts some features based on imageNet pretrained VGG-16 for comparing higher-level feature of these two images.
+  
+ - Style loss: 
+   Similar to perceptual loss looks at ground truth image and output image, but here we perform autocorrelation using some gram matrix on each feature map.
+
+- Total Variation loss: 
+  It is a kind of a penalty for non-smooth output in the masked region. 
+
+
+The Total Loss is a weighted sum of all theses loss components.
