@@ -273,3 +273,5 @@ Figure shows, the model can robustly handle the holes in these images
 and reconstruct them effectively. Afterwards, I fed the reconstructed images
 of middle column again into  scene text recognizer to see if it now
 can recognize the word images, as we can see in the middle column of Figure the correct outputs in yellow are perfectly compatible with their text labels (word images).
+
+![](image/both.png)
