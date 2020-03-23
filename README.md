@@ -210,8 +210,16 @@ is about 128 epochs. Each epoch takes about 19 minutes, and in total the
 whole training phase takes about one day and 12 hours. The checkpoints
 are written at 1000 steps intervals in Tensorflow framework. Table below summarizes the training process including the numeric
 evaluation.
+![](image/table_nrtr.png)
 
-## Inpainting Results
+Recognition accuracies and losses(%) for training set (Train) and validation set (Val) on three versions
+of COCO-Text dataset. ”Original” means original COCO-Text dataset,
+”Inpainted” reconstructed of masked COCO-Text images by the Image
+Reconstruction Model, and ”Distorted” masked COCO-Text images
+that will be fed into image reconstruction model.’t/GPU’ (minute) indicates
+the time cost per epoch at training stage on GPU.
+
+## Results of Inpainting Model
 
 Some representative results of the model are presented
 in Figure below, including ground-truth images (GT), masked input images
@@ -236,5 +244,12 @@ More Results:
 
 
 
-
+## Results of Scene Text Recognition Model
+Some
+representative results are presented in Figure below.  As can be seen, the model
+demonstrates excellent capability on recognizing extremely challenging text
+images, including but not limited to low resolution, low visual quality, complex
+geometric deformations and cluttered background, various font size, style and directions, 
+moreover punctuations and special symbols, some of
+which are even hard to human to recognize.
 
