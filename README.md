@@ -34,7 +34,11 @@ The final comprehensive composite model looks like Figure below, is able to
 reconstruct occluded text in images by an inpainting model then recognize
 the text using an OCR engine.
 
+![](image/pipeline.png)
 
+## Image Reconstruction Model
+
+### Network Architecture
 
 The structure of the proposed model is based on [U-Net network](https://arxiv.org/abs/1505.04597), which
 is based on encoder-decoder architecture. However, instead of using normal
@@ -42,9 +46,11 @@ convolutional operation, the network uses stacked partial convolution
 operation and mask updating steps, which together form a Partial Convolutional
 Layer to perform image reconstruction.
 
-### Network Architecture
-The network architecture is illustrated in figure below The network is similar to U-Net architecture 
-but with some modifications to fit our task. ![](image/architecture.png)
+The network architecture is illustrated in figure below. The network is similar to U-Net architecture 
+but with some modifications to fit our task. 
+
+![](image/architecture.png)
+
 It consists of an encoder and decoder with replacing all convolutional layers with Partial Convolutional 
 Layers that take into account also masks and using nearest neighbor up-sampling in the decoding stage. 
 The straightforward implementation is to define binary masks of size C x H x W, and the same size with 
@@ -114,6 +120,20 @@ is composed of many components:
 The Total Loss is a weighted sum of all theses loss components.
 
 ![](image/loss.PNG)
+
+
+## Scene Text Recognition Model
+
+The network architecture recycles the
+transformer architecture proposed in [“Attention Is All You Need”](https://arxiv.org/abs/1706.03762), besides
+to the core modules in the transformer is a modality-transform
+block added in the encoder to transform an input image to the corresponding
+sequence, which could be considered as a pre-processing step, which forms at the end a consolidated model to
+recognize scene text based on [NRTR](https://arxiv.org/abs/1806.00926). 
+The overall architecture of NRTR (figure below) follows the encoder-decoder framework
+and contains the same core modules of the transformer, which
+perform the same functions but with some slight changes in the structure of the encoder and decoder.
+
 
 
 # Experiment
