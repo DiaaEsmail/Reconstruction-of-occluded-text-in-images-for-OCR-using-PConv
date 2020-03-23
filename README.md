@@ -245,11 +245,31 @@ More Results:
 
 
 ## Results of Scene Text Recognition Model
-Some
-representative results are presented in Figure below.  As can be seen, the model
+Some representative results are presented in Figure below.  As can be seen, the model
 demonstrates excellent capability on recognizing extremely challenging text
 images, including but not limited to low resolution, low visual quality, complex
 geometric deformations and cluttered background, various font size, style and directions, 
 moreover punctuations and special symbols, some of
 which are even hard to human to recognize.
 
+![](image/nrtr_result.png)
+
+## Results of both models
+
+Some representative results of both image reconstruction and text recognition
+model together are represented in Figure below, including ground-truth
+images (GT) of COCO-Text dataset in the right column, in the left column
+there are the input masked images (Input) that will be fed into image
+reconstruction model, and in the middle column there are the predicted
+reconstructed images (PConv) by image reconstruction model.
+The experiment on this bunch of images is carried out in two phases:
+firstly, I fed the masked scene text images (the left column of Figure below) into the text
+recognition model to check up if the model is even able to recognize some
+characters, as we can see the model is not able to recognize the text (text
+labels in yellow and incorrect outputs in red). However, I moved on to the
+second phase of experiment and fed the input masked images into image
+inpainting model to reconstruct these images, and as the middle column of
+Figure shows, the model can robustly handle the holes in these images
+and reconstruct them effectively. Afterwards, I fed the reconstructed images
+of middle column again into  scene text recognizer to see if it now
+can recognize the word images, as we can see in the middle column of Figure the correct outputs in yellow are perfectly compatible with their text labels (word images).
