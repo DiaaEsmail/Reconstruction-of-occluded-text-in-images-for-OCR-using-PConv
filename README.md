@@ -11,7 +11,13 @@ plausible imagery before recognizing the whole text in an image. I introduce
 an approach to reconstruct an image by using Partial Convolution,
 which comprises a mask and renormalized convolution operation followed
 by a mask-update step to automatically generate an updated mask for the
-next layer as part of the forward pass. The Experiments have shown that the proposed model can effectively and reasonably produce reconstructed images 
+next layer as part of the forward pass. For the recognition task, I propose
+a no-recurrence sequence-to-sequence model that depends only on attention
+mechanism and dispenses completely with recurrences and convolutions. The
+model consists of an encoder and decoder, and uses stacked self-attention
+modules. The Experiments have shown that both proposed models can reasonably produce
+reconstructed images and improve the effectiveness of text recognition
+in these images.
 
 
 # Dependencies
@@ -23,6 +29,13 @@ next layer as part of the forward pass. The Experiments have shown that the prop
   - Pandas
   
 # The Proposed Model
+
+The final comprehensive composite model looks like Figure below, is able to
+reconstruct occluded text in images by an inpainting model then recognize
+the text using an OCR engine.
+
+
+
 The structure of the proposed model is based on [U-Net network](https://arxiv.org/abs/1505.04597), which
 is based on encoder-decoder architecture. However, instead of using normal
 convolutional operation, the network uses stacked partial convolution
