@@ -134,15 +134,15 @@ The overall architecture of NRTR (figure below) follows the encoder-decoder fram
 and contains the same core modules of the transformer, which
 perform the same functions but with some slight changes in the structure of the encoder and decoder.
 
-
+![](image/NRTR.png)
 
 # Experiment
 
-### Training Dataset
+## Training Dataset
 For all experiments i use [COCO-Text dataset](https://rrc.cvc.uab.es/?ch=5), which is based on MSCOCO dataset that
 contains images of complex scenes and based on real scene imagery (as opposed to synthetic images).
 
-### Mask Generation 
+## Mask Generation 
 
 I create masks of random streaks and holes of arbitrary shapes using OpenCV as figure shows below, where during the
 training phase i do augmentation on the masks and later perform random dilation, rotation
@@ -152,8 +152,8 @@ the size of 512×512.
 ![](image/mask_sample.png)
 
 
-### Training Procedure
-
+## Training Procedure
+### Image Reconstruction Model
 The model was trained on a single NVIDIA Geforce GTX 1080 Ti (11 GB) with a batch
 size of 6, and each epoch is specified to be 10,000 batches long. However, in order to use batch normalization in
 the presence of holes we can apply two-phase training technique:
@@ -174,14 +174,14 @@ variance issues, but also helps to achieve faster convergence. It takes about
 ![](image/table.png)
 
 ’t/GPU’ indicates the time cost per epoch at training stage on GPU.
-### Quantitative Evaluation
+## Quantitative Evaluation
 
 It has been observed in the recent related works of image inpainting
 that there is no perfect numerical metric to evaluate image reconstruction
 results due to the existence of many possible solutions. Nevertheless, we follow
 the previous image inpainting works by reporting Peak Signal to Noise Ratio (PSNR). 
 
-#### PSNR
+### PSNR
 
 It is defined by mean squared error (MSE), and
 computed by averaging the squared intensity differences of distorted and
@@ -190,8 +190,28 @@ decibel scale. MSE and PSNR are defined as:
 
 ![](image/psnr.png)
 
+### Scene Text Recognition Model
+I trained and evaluated Scene Text Recognition Model on original COCO-Text
+dataset, reconstructed COCO-Text images by the Image Reconstruction
+Model, and distorted (masked) COCO-Text images without
+any fine-tuning. In both training and inference stages, I set heights of
+the word images to 32, while widths are proportionally scaled with heights.
 
-### Inpainting Results
+In the training stage, samples are batched by 32 length of input encoding sequences.
+Each training batch contains 2048 maximum number of image tokens and
+target tokens. We use Adam Optimizer with following values of hyperparameters
+𝛽1 = 0.9, 𝛽2 = 0.99, 𝜖 = 10−9. 
+
+In order to prevent over-fitting, I set residual dropout to 0.1, where it is applied to
+the output of each sub-layer in the encoder and decoder before
+adding the residual information. I trained the model on one machine with
+an NVIDIA Geforce GTX 1080 Ti (11 GB) for a total of 175000 steps which
+is about 128 epochs. Each epoch takes about 19 minutes, and in total the
+whole training phase takes about one day and 12 hours. The checkpoints
+are written at 1000 steps intervals in Tensorflow framework. Table below summarizes the training process including the numeric
+evaluation.
+
+## Inpainting Results
 
 Some representative results of the model are presented
 in Figure below, including ground-truth images (GT), masked input images
@@ -213,3 +233,8 @@ More Results:
 ![](image/img_7.png)
 ![](image/img_8.png)
 ![](image/img_9.png)
+
+
+
+
+
